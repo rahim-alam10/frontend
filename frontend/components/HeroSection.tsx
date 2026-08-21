@@ -15,12 +15,20 @@ function HeroSection() {
                     Master your board exams and entry tests with structured, premium resources
                 </p>
                 <div className="mt-24 ">
-                    <Link href={"/courses"}>
+                    <Link href={"/signup"}>
                         <Button
                             borderRadius="1.75rem"
                             className="bg-white dark:bg-black text-black dark:text-white border-neutral-200 dark:border-slate-800 cursor-pointer"
                         >
-                            Explore courses
+                            Sign Up
+                        </Button>
+                    </Link>
+                    <Link href={"/signin"}>
+                        <Button
+                            borderRadius="1.75rem"
+                            className="bg-white dark:bg-black text-black dark:text-white border-neutral-200 dark:border-slate-800 cursor-pointer"
+                        >
+                            Sign In
                         </Button>
                     </Link>
                 </div>

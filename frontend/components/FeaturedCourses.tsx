@@ -16,6 +16,7 @@ function FeaturedCourses() {
     }))
 
     return (
+        
         <div className="py-12 bg-gray-900">
             <div>
                 <div className="text-center">
@@ -24,6 +25,7 @@ function FeaturedCourses() {
                 </div>
             </div>
             <div className="mt-20 mx-8">
+                <p className=" text-center mt-6 mb-17 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">Available University Materials</p>
                 <FocusCards cards={cards} />
             </div>
             <div className="mt-20 text-center">
