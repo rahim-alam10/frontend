@@ -1,6 +1,8 @@
 // app/dashboard/page.tsx
 'use client'
 import { useState } from 'react'
+import { useAuth } from '@/contexts/AuthContext'
+import { useProtectedRoute } from '@/hooks/useProtectedRoute'
 import Navbar from '@/features/dashboard/Navbar'
 import Sidebar from '@/features/dashboard/Sidebar'
 import ProgressCard from '@/features/dashboard/ProgressCard'
@@ -15,20 +17,17 @@ import {
   Award,
   Clock,
   Calendar,
-  TrendingUp,
-  Users,
-  Video,
   Sparkles,
   ArrowRight,
   Plus,
-  CheckCircle,
-  Brain,
-  BarChart3
+  LogOut
 } from 'lucide-react'
 import Link from 'next/link'
+import { toast } from 'sonner'
 
 export default function DashboardPage() {
-  const [selectedView, setSelectedView] = useState('overview')
+  const { user, signOut, isLoading } = useAuth()
+  const { isLoading: routeLoading } = useProtectedRoute()
 
   // Quick Stats Data
   const quickStats = [
@@ -37,28 +36,24 @@ export default function DashboardPage() {
       value: "7 days",
       icon: <Sparkles className="h-5 w-5 text-yellow-500" />,
       change: "+2 days",
-      changeType: "positive"
     },
     {
       title: "Mock Tests",
       value: "12",
       icon: <Target className="h-5 w-5 text-blue-500" />,
       change: "+3 this week",
-      changeType: "positive"
     },
     {
       title: "Resources Saved",
       value: "42",
       icon: <BookOpen className="h-5 w-5 text-purple-500" />,
       change: "+5 new",
-      changeType: "positive"
     },
     {
       title: "Hours Studied",
       value: "48",
       icon: <Clock className="h-5 w-5 text-green-500" />,
       change: "+12 hrs",
-      changeType: "positive"
     }
   ]
 
@@ -95,7 +90,7 @@ export default function DashboardPage() {
     {
       title: "Physics Vectors & Equilibrium",
       type: "Video",
-      icon: <Video className="h-4 w-4" />,
+      icon: <FileText className="h-4 w-4" />,
       color: "bg-red-500"
     },
     {
@@ -115,27 +110,44 @@ export default function DashboardPage() {
     }
   }
 
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+      toast.success('Signed out successfully')
+    } catch (error) {
+      toast.error('Failed to sign out')
+    }
+  }
+
+  // Show loading state
+  if (isLoading || routeLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-50 dark:bg-zinc-900">
+        <div className="text-center">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-purple-600 border-t-transparent mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading your dashboard...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-screen flex-col bg-gray-50 dark:bg-zinc-900">
-      {/* Navbar - Fixed at top */}
       <Navbar />
       
-      {/* Main Content Area with Sidebar */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar - Fixed on left */}
         <Sidebar />
         
-        {/* Scrollable Content Area */}
         <main className="flex-1 overflow-y-auto p-4 lg:p-6">
           <div className="container mx-auto space-y-6">
             {/* Header Section */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white lg:text-3xl">
-                  Welcome back, Usman! 👋
+                  Welcome back, {user?.fullName || 'Student'}! 👋
                 </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  NUST NET Prep Mode • You're on a 7-day streak!
+                  {user?.goal ? `${user.goal.replace('-', ' ').toUpperCase()} Prep Mode` : 'NUST NET Prep Mode'} • You're on a 7-day streak!
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -146,6 +158,14 @@ export default function DashboardPage() {
                 <Button variant="outline" className="gap-2">
                   <Calendar className="h-4 w-4" />
                   View Calendar
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={handleSignOut}
+                  className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                >
+                  <LogOut className="h-5 w-5" />
                 </Button>
               </div>
             </div>
@@ -174,14 +194,12 @@ export default function DashboardPage() {
               ))}
             </div>
 
-            {/* Main Grid - 2 Columns */}
+            {/* Main Grid */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-              {/* Left Column - Progress (spans 2 columns) */}
               <div className="lg:col-span-2">
                 <ProgressCard />
               </div>
 
-              {/* Right Column - Quick Actions & Deadlines */}
               <div className="space-y-6">
                 {/* Upcoming Deadlines */}
                 <Card>
@@ -282,7 +300,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Bottom Section - Recent Activity (full width) */}
+            {/* Recent Activity */}
             <div className="grid grid-cols-1 gap-6">
               <RecentActivity />
             </div>

@@ -1,3 +1,4 @@
+// contexts/AuthContext.tsx
 'use client'
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
@@ -20,7 +21,6 @@ interface AuthContextType {
   signUp: (data: SignUpData) => Promise<void>
   signOut: () => Promise<void>
   updateUser: (data: Partial<User>) => Promise<void>
-  resetPassword: (email: string) => Promise<void>
 }
 
 interface SignUpData {
@@ -34,163 +34,95 @@ interface SignUpData {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
+// Mock user data for frontend testing
+const MOCK_USER: User = {
+  id: '1',
+  email: 'usman@example.com',
+  fullName: 'Usman Sheikh',
+  goal: 'entry-test',
+  role: 'student',
+  createdAt: new Date().toISOString()
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
 
-  // Check for existing session on mount
+  // Check for existing session on mount (localStorage)
   useEffect(() => {
-    const checkAuth = async () => {
+    const storedUser = localStorage.getItem('mock_user')
+    if (storedUser) {
       try {
-        const token = localStorage.getItem('auth_token')
-        if (token) {
-          // Verify token with backend
-          const response = await fetch('/api/auth/verify', {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          })
-          
-          if (response.ok) {
-            const userData = await response.json()
-            setUser(userData)
-          } else {
-            localStorage.removeItem('auth_token')
-          }
-        }
-      } catch (error) {
-        console.error('Auth check failed:', error)
-      } finally {
-        setIsLoading(false)
+        setUser(JSON.parse(storedUser))
+      } catch {
+        localStorage.removeItem('mock_user')
       }
     }
-
-    checkAuth()
+    setIsLoading(false)
   }, [])
 
-  // Sign In
+  // Mock Sign In
   const signIn = async (email: string, password: string) => {
     setIsLoading(true)
-    try {
-      const response = await fetch('/api/auth/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to sign in')
-      }
-
-      // Store token and user data
-      localStorage.setItem('auth_token', data.token)
-      setUser(data.user)
-      
-      router.push('/dashboard')
-    } catch (error) {
-      throw error
-    } finally {
-      setIsLoading(false)
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    // For demo, accept any email/password
+    const mockUser = {
+      ...MOCK_USER,
+      email: email,
+      fullName: email.split('@')[0] === 'usman' ? 'Usman Sheikh' : 'Test User'
     }
+    
+    localStorage.setItem('mock_user', JSON.stringify(mockUser))
+    setUser(mockUser)
+    setIsLoading(false)
+    
+    router.push('/dashboard')
   }
 
-  // Sign Up
+  // Mock Sign Up
   const signUp = async (data: SignUpData) => {
     setIsLoading(true)
-    try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Failed to sign up')
-      }
-
-      // Automatically sign in after sign up
-      localStorage.setItem('auth_token', result.token)
-      setUser(result.user)
-      
-      router.push('/dashboard')
-    } catch (error) {
-      throw error
-    } finally {
-      setIsLoading(false)
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    const newUser: User = {
+      id: Date.now().toString(),
+      email: data.email,
+      fullName: data.fullName,
+      goal: data.goal,
+      role: 'student',
+      createdAt: new Date().toISOString()
     }
+    
+    localStorage.setItem('mock_user', JSON.stringify(newUser))
+    setUser(newUser)
+    setIsLoading(false)
+    
+    router.push('/dashboard')
   }
 
-  // Sign Out
+  // Mock Sign Out
   const signOut = async () => {
     setIsLoading(true)
-    try {
-      // Call logout API
-      await fetch('/api/auth/signout', {
-        method: 'POST',
-      })
-      
-      // Clear local storage
-      localStorage.removeItem('auth_token')
-      setUser(null)
-      
-      router.push('/signin')
-    } catch (error) {
-      console.error('Sign out failed:', error)
-    } finally {
-      setIsLoading(false)
-    }
+    await new Promise(resolve => setTimeout(resolve, 500))
+    localStorage.removeItem('mock_user')
+    setUser(null)
+    setIsLoading(false)
+    router.push('/signin')
   }
 
-  // Update User
+  // Mock Update User
   const updateUser = async (data: Partial<User>) => {
-    try {
-      const token = localStorage.getItem('auth_token')
-      const response = await fetch('/api/auth/update', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(data),
-      })
-
-      if (response.ok) {
-        const updatedUser = await response.json()
-        setUser(prev => prev ? { ...prev, ...updatedUser } : null)
-      }
-    } catch (error) {
-      console.error('Update failed:', error)
-      throw error
-    }
-  }
-
-  // Reset Password
-  const resetPassword = async (email: string) => {
-    try {
-      const response = await fetch('/api/auth/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.message || 'Password reset failed')
-      }
-    } catch (error) {
-      throw error
-    }
+    if (!user) return
+    
+    const updatedUser = { ...user, ...data }
+    localStorage.setItem('mock_user', JSON.stringify(updatedUser))
+    setUser(updatedUser)
   }
 
   const value = {
@@ -201,7 +133,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signUp,
     signOut,
     updateUser,
-    resetPassword,
   }
 
   return (
