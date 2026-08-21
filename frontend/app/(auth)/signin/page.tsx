@@ -1,6 +1,6 @@
-import SignIn from "@/components/SignIn";
+import SignIn from "@/features/auth/signin/SignIn";
 
-export default function SignupPage() {
+export default function SignInPage() {
   return (
     <div>
       <SignIn />

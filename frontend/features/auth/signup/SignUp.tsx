@@ -1,10 +1,11 @@
 'use client'
 import Link from "next/link"
 import { useState } from "react"
-import { Spotlight } from "./ui/Spotlight"
+import { Spotlight } from "../../../components/ui/Spotlight"
 import { Eye, EyeOff } from "lucide-react"
 
 function SignUp() {
+    
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -275,7 +276,7 @@ function SignUp() {
                         {/* Login Link */}
                         <p className="mt-2.5 text-center text-gray-600 dark:text-gray-400 text-xs">
                             Already have an account?{' '}
-                            <Link href="/login" className="text-purple-600 hover:text-purple-500 font-semibold">
+                            <Link href="/signin" className="text-purple-600 hover:text-purple-500 font-semibold">
                                 Log In
                             </Link>
                         </p>

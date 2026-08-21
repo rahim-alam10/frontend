@@ -4,8 +4,11 @@ import { Button } from "./ui/moving-border";
 
 function HeroSection() {
     return (
-        <div className="h-auto md:h-[40rem] w-full rounded-md flex flex-col items-center justify-center relative overflow-hidden mx-auto py-10 md:py-0">
-            <Spotlight className="-Advanced Vocal Techniques top-40 left-0 md:left-60 md:-top-20" fill="white" />
+        <div className="h-screen w-full flex flex-col items-center justify-center relative overflow-hidden mx-auto bg-black">            
+        <Spotlight 
+                className="absolute inset-0 w-full h-full z-0" 
+                fill="white" 
+            />
             <div className="p-4 relative z-10 w-full text-center" >
                 <h1 className="mt-30 md:mt-30 text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
                     Welcome to the Future of Preparation
@@ -15,10 +18,10 @@ function HeroSection() {
                     Master your board exams and entry tests with structured, premium resources
                 </p>
                 <div className="mt-24 ">
-                    <Link href={"/signup"}>
+                    <Link href={"/signup"} className="mr-10">
                         <Button
                             borderRadius="1.75rem"
-                            className="bg-white dark:bg-black text-black dark:text-white border-neutral-200 dark:border-slate-800 cursor-pointer"
+                            className=" text-xl cursor-pointer"
                         >
                             Sign Up
                         </Button>
@@ -26,14 +29,13 @@ function HeroSection() {
                     <Link href={"/signin"}>
                         <Button
                             borderRadius="1.75rem"
-                            className="bg-white dark:bg-black text-black dark:text-white border-neutral-200 dark:border-slate-800 cursor-pointer"
+                            className=" text-xl cursor-pointer"
                         >
                             Sign In
                         </Button>
                     </Link>
                 </div>
             </div>
-
         </div>
     )
 }
