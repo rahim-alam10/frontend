@@ -1,0 +1,34 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "LUMS",
+      "image": "/universities/Lums.jpg"
+    },
+    {
+      "id": 2,
+      "title": "IBA",
+      "image": "/universities/Iba.jpeg"
+    },
+    {
+      "id": 3,
+      "title": "AKU",
+      "image": "/universities/Aku.jpeg"
+    },
+    {
+      "id": 4,
+      "title": "FAST",
+      "image": "/universities/Fast.jpeg"
+    },
+    {
+      "id": 5,
+      "title": "NUST",
+      "image": "/universities/Nust.jpeg"
+    },
+    {
+      "id": 6,
+      "title": "GIKI",
+      "image": "/universities/Giki.jpeg"
+    }
+  ]
+}
