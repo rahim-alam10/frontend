@@ -1,6 +1,4 @@
-// frontend/app/(main)/layout.tsx
-
-export default function MainLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
