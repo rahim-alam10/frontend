@@ -5,7 +5,6 @@ import Link from 'next/link'
 import {
     Search,
     Bell,
-    User,
     ChevronDown,
     BookOpen,
     LayoutDashboard,
