@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { FileText, Calendar, ChevronDown, ChevronUp, Eye, Download, FileCheck, ArrowRight } from 'lucide-react'
-import { pastPapersData } from '../data/pastPapersData'
+import { pastPapersData } from '../data/fast.data'
 
 export default function PastPapersSection() {
   const [expandedYear, setExpandedYear] = useState<string | null>('2024')

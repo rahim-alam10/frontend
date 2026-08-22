@@ -2,12 +2,8 @@
 'use client'
 
 import { useProtectedRoute } from '@/hooks/useProtectedRoute'
-import NUSTHeader from '@/features/dashboard/preparations/entry-test/nust/components/NUSTHeader'
-import PastPapersSection from '@/features/dashboard/preparations/entry-test/nust/components/PastPapersSection'
-import ResourcesGrid from '@/features/dashboard/preparations/entry-test/nust/components/ResourcesGrid'
-import SubjectProgress from '@/features/dashboard/preparations/entry-test/nust/components/SubjectProgress'
-import MockTestCTA from '@/features/dashboard/preparations/entry-test/nust/components/MockTestCTA'
-import { useState } from 'react'
+import NUSTHeader from '@/features/dashboard/preparations/entry-test/nust/components/Header'
+import PastPapersSection from '@/features/dashboard/preparations/entry-test/nust/components/Papers'
 
 export default function Page() {
 
@@ -29,10 +25,6 @@ export default function Page() {
     <div className="space-y-6">
       <NUSTHeader />
       <PastPapersSection />
-      <ResourcesGrid />
-      <SubjectProgress />
-      <MockTestCTA />
-      {/* <h1>Hello World</h1> */}
     </div>
   )
 }

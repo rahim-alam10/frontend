@@ -1,4 +1,4 @@
-import { PastPaper } from '../types'
+import { PastPaper } from '../types/nust.types'
 
 export const pastPapersData: PastPaper[] = [
   { year: '2024', count: 12, papers: ['NET-I', 'NET-II', 'NET-III'] },
