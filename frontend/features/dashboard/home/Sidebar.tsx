@@ -17,15 +17,23 @@ import {
     ChevronRight,
     Target,
     Award,
-    Clock,
     FolderOpen,
     BookMarked,
     GraduationCap,
     Lightbulb,
-    Shield,
     ChevronDown,
     ChevronUp,
-    Sparkles
+    Sparkles,
+    School,
+    PenTool,
+    BookCheck,
+    ScrollText,
+    FlaskConical,
+    Atom,
+    Calculator,
+    Brain,
+    Sigma,
+    Microscope
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -40,15 +48,22 @@ import { cn } from '@/lib/utils'
 interface NavItem {
     title: string
     href: string
-    icon: React.ReactNode
+    icon?: React.ReactNode
     badge?: string
-    subItems?: { title: string; href: string }[]
+    subItems?: NavSubItem[]
+}
+
+interface NavSubItem {
+    title: string
+    href: string
+    icon?: React.ReactNode
+    subItems?: NavSubItem[]
 }
 
 export default function Sidebar() {
     const pathname = usePathname()
     const [isCollapsed, setIsCollapsed] = useState(false)
-    const [expandedItems, setExpandedItems] = useState<string[]>(['Preparation'])
+    const [expandedItems, setExpandedItems] = useState<string[]>(['Preparation', 'Board Exams', 'Entry Tests'])
 
     const toggleExpand = (title: string) => {
         setExpandedItems(prev =>
@@ -66,13 +81,35 @@ export default function Sidebar() {
         },
         {
             title: 'Preparation',
-            href: '/preparation',
+            href: '/dashboard/preparation',
             icon: <Target className="h-5 w-5" />,
             subItems: [
-                { title: 'NUST NET', href: '/preparation/nust' },
-                { title: 'FAST-NUCES', href: '/preparation/fast' },
-                { title: 'Board Exams', href: '/preparation/board' },
-                { title: 'Entry Tests', href: '/preparation/entry-tests' },
+                { 
+                    title: 'Board Exams',
+                    href: '/dashboard/preparation/board',
+                    icon: <School className="h-4 w-4" />,
+                    subItems: [
+                        { title: 'AKU', href: '/preparation/board/aku', icon: <BookCheck className="h-3.5 w-3.5" /> },
+                        { title: 'Federal Board', href: '/preparation/board/federal', icon: <ScrollText className="h-3.5 w-3.5" /> },
+                        { title: 'KIU', href: '/preparation/board/kiu', icon: <BookOpen className="h-3.5 w-3.5" /> },
+                        { title: 'Sindh Board', href: '/preparation/board/sindh', icon: <BookCheck className="h-3.5 w-3.5" /> },
+                        { title: 'Punjab Board', href: '/preparation/board/punjab', icon: <ScrollText className="h-3.5 w-3.5" /> },
+                    ]
+                },
+                { 
+                    title: 'Entry Tests',
+                    href: '/preparation/entry-tests',
+                    icon: <PenTool className="h-4 w-4" />,
+                    subItems: [
+                        { title: 'NUST NET', href: '/preparation/entry-tests/nust', icon: <Target className="h-3.5 w-3.5" /> },
+                        { title: 'FAST-NUCES', href: '/preparation/entry-tests/fast', icon: <Atom className="h-3.5 w-3.5" /> },
+                        { title: 'GIKI', href: '/preparation/entry-tests/giki', icon: <FlaskConical className="h-3.5 w-3.5" /> },
+                        { title: 'LUMS', href: '/preparation/entry-tests/lums', icon: <Brain className="h-3.5 w-3.5" /> },
+                        { title: 'UET', href: '/preparation/entry-tests/uet', icon: <Calculator className="h-3.5 w-3.5" /> },
+                        { title: 'MDCAT', href: '/preparation/entry-tests/mdcat', icon: <Microscope className="h-3.5 w-3.5" /> },
+                        { title: 'ECAT', href: '/preparation/entry-tests/ecat', icon: <Sigma className="h-3.5 w-3.5" /> },
+                    ]
+                },
             ],
         },
         {
@@ -80,9 +117,9 @@ export default function Sidebar() {
             href: '/resources',
             icon: <BookOpen className="h-5 w-5" />,
             subItems: [
-                { title: 'Saved Resources', href: '/resources/saved' },
-                { title: 'My Uploads', href: '/resources/uploads' },
-                { title: 'Recommended', href: '/resources/recommended' },
+                { title: 'Saved Resources', href: '/resources/saved', icon: <BookMarked className="h-4 w-4" /> },
+                { title: 'My Uploads', href: '/resources/uploads', icon: <FolderOpen className="h-4 w-4" /> },
+                { title: 'Recommended', href: '/resources/recommended', icon: <Lightbulb className="h-4 w-4" /> },
             ],
         },
         {
@@ -134,9 +171,78 @@ export default function Sidebar() {
         return pathname?.startsWith(href)
     }
 
-    const isSubItemActive = (subItems?: { title: string; href: string }[]) => {
+    const isSubItemActive = (subItems?: NavSubItem[]): boolean => {
         if (!subItems) return false
-        return subItems.some(item => pathname === item.href)
+        return subItems.some(item => {
+            if (pathname === item.href) return true
+            if (item.subItems) return isSubItemActive(item.subItems)
+            return false
+        })
+    }
+
+    // Recursive function to render sub-items
+    const renderSubItems = (items: NavSubItem[], depth: number = 0) => {
+        return (
+            <ul className={cn(
+                "space-y-1",
+                depth === 0 && "ml-4 mt-1",
+                depth > 0 && "ml-6 mt-1"
+            )}>
+                {items.map((subItem) => {
+                    const hasSubItems = subItem.subItems && subItem.subItems.length > 0
+                    const isExpanded = expandedItems.includes(subItem.title)
+                    const isActiveSub = pathname === subItem.href
+                    const isSubActive = isSubItemActive(subItem.subItems)
+
+                    return (
+                        <li key={subItem.href}>
+                            {hasSubItems ? (
+                                <div className="flex flex-col">
+                                    <Button
+                                        variant={isActiveSub || isSubActive ? 'default' : 'ghost'}
+                                        className={cn(
+                                            'w-full justify-between px-3 text-sm',
+                                            (isActiveSub || isSubActive) &&
+                                            'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400'
+                                        )}
+                                        onClick={() => toggleExpand(subItem.title)}
+                                    >
+                                        <span className="flex items-center gap-2">
+                                            {subItem.icon && <span className="text-gray-500">{subItem.icon}</span>}
+                                            <span>{subItem.title}</span>
+                                        </span>
+                                        {isExpanded ? (
+                                            <ChevronUp className="h-3 w-3" />
+                                        ) : (
+                                            <ChevronDown className="h-3 w-3" />
+                                        )}
+                                    </Button>
+                                    {isExpanded && subItem.subItems && (
+                                        renderSubItems(subItem.subItems, depth + 1)
+                                    )}
+                                </div>
+                            ) : (
+                                <Link href={subItem.href}>
+                                    <Button
+                                        variant={isActiveSub ? 'default' : 'ghost'}
+                                        className={cn(
+                                            'w-full justify-start px-3 text-sm font-normal',
+                                            isActiveSub &&
+                                            'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400'
+                                        )}
+                                    >
+                                        <span className="flex items-center gap-2">
+                                            {subItem.icon && <span className="text-gray-400">{subItem.icon}</span>}
+                                            <span>{subItem.title}</span>
+                                        </span>
+                                    </Button>
+                                </Link>
+                            )}
+                        </li>
+                    )
+                })}
+            </ul>
+        )
     }
 
     return (
@@ -195,6 +301,7 @@ export default function Sidebar() {
                                 return (
                                     <li key={item.title}>
                                         <Tooltip>
+                                            // className: "w-full"
                                             <TooltipTrigger className="w-full">
                                                 <Link href={item.href}>
                                                     <Button
@@ -258,24 +365,7 @@ export default function Sidebar() {
                                             </Button>
                                         </Link>
                                         {hasSubItems && isExpanded && item.subItems && (
-                                            <ul className="ml-9 mt-1 space-y-1">
-                                                {item.subItems.map((subItem) => (
-                                                    <li key={subItem.href}>
-                                                        <Link href={subItem.href}>
-                                                            <Button
-                                                                variant={pathname === subItem.href ? 'default' : 'ghost'}
-                                                                className={cn(
-                                                                    'w-full justify-start px-3 text-sm',
-                                                                    pathname === subItem.href &&
-                                                                    'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400'
-                                                                )}
-                                                            >
-                                                                <span className="ml-1">{subItem.title}</span>
-                                                            </Button>
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                            renderSubItems(item.subItems)
                                         )}
                                     </div>
                                 </li>
@@ -294,9 +384,17 @@ export default function Sidebar() {
                                 return (
                                     <li key={item.title}>
                                         <Tooltip>
-                                            <TooltipTrigger className="w-full">
-                                                <Link href={item.href} className="block">
-                                                    <Button>...</Button>
+                                            <TooltipTrigger className= "w-full">
+                                                <Link href={item.href}>
+                                                    <Button
+                                                        variant={active ? 'default' : 'ghost'}
+                                                        className={cn(
+                                                            'h-10 w-full justify-center px-2',
+                                                            active && 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400'
+                                                        )}
+                                                    >
+                                                        {item.icon}
+                                                    </Button>
                                                 </Link>
                                             </TooltipTrigger>
                                             <TooltipContent side="right">
@@ -362,7 +460,7 @@ export default function Sidebar() {
                         ) : (
                             <li>
                                 <Tooltip>
-                                    <TooltipTrigger className="w-full">
+                                    <TooltipTrigger className= "w-full">
                                         <Link href="/profile">
                                             <Button variant="ghost" className="h-10 w-full justify-center px-2">
                                                 <Avatar className="h-8 w-8">
@@ -379,6 +477,7 @@ export default function Sidebar() {
                         )}
                     </ul>
                 </div>
+                
             </aside>
         </TooltipProvider>
     )

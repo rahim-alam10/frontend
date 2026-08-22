@@ -321,38 +321,6 @@ export default function ProgressCard({
             </div>
           ))}
         </div>
-
-        {/* Quick Stats */}
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-          <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-green-500" />
-              <span className="text-xs text-gray-500 dark:text-gray-400">Topics Covered</span>
-            </div>
-            <p className="mt-1 text-lg font-bold text-gray-900 dark:text-white">14/20</p>
-          </div>
-          <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
-            <div className="flex items-center gap-2">
-              <Brain className="h-4 w-4 text-purple-500" />
-              <span className="text-xs text-gray-500 dark:text-gray-400">Quizzes Taken</span>
-            </div>
-            <p className="mt-1 text-lg font-bold text-gray-900 dark:text-white">28</p>
-          </div>
-          <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
-            <div className="flex items-center gap-2">
-              <BookOpen className="h-4 w-4 text-blue-500" />
-              <span className="text-xs text-gray-500 dark:text-gray-400">Resources</span>
-            </div>
-            <p className="mt-1 text-lg font-bold text-gray-900 dark:text-white">42</p>
-          </div>
-          <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
-            <div className="flex items-center gap-2">
-              <Award className="h-4 w-4 text-yellow-500" />
-              <span className="text-xs text-gray-500 dark:text-gray-400">Achievements</span>
-            </div>
-            <p className="mt-1 text-lg font-bold text-gray-900 dark:text-white">8</p>
-          </div>
-        </div>
       </CardContent>
     </Card>
   )
