@@ -1,192 +1,135 @@
+import { LUMSDepartment } from "../types/lums.types";
 
-
-export interface IBAPaper {
-  id: string;
-  title: string;
-  code: string;
-  type: string;
-  totalMarks: number;
-  duration: number;
-  isAvailable: boolean;
-  difficulty: 'easy' | 'medium' | 'hard';
-  year: string;
-  round: 'Round I' | 'Round II';
-  department?: string;
-}
-
-export const pastPapersData: IBAPaper[] = [
-  // Round I - 2024
-  {
-    id: 'iba-r1-2024-01',
-    title: 'IBA BBA - English',
-    code: 'IBA-ENG-2024',
-    type: 'english',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: true,
-    difficulty: 'medium',
-    year: '2024',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  {
-    id: 'iba-r1-2024-02',
-    title: 'IBA BBA - Mathematics',
-    code: 'IBA-MATH-2024',
-    type: 'math',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: true,
-    difficulty: 'hard',
-    year: '2024',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  {
-    id: 'iba-r1-2024-03',
-    title: 'IBA BBA - Analytical',
-    code: 'IBA-ANAL-2024',
-    type: 'analytical',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: true,
-    difficulty: 'hard',
-    year: '2024',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  // Round I - 2023
-  {
-    id: 'iba-r1-2023-01',
-    title: 'IBA BBA - English',
-    code: 'IBA-ENG-2023',
-    type: 'english',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: true,
-    difficulty: 'medium',
-    year: '2023',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  {
-    id: 'iba-r1-2023-02',
-    title: 'IBA BBA - Mathematics',
-    code: 'IBA-MATH-2023',
-    type: 'math',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: true,
-    difficulty: 'hard',
-    year: '2023',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  {
-    id: 'iba-r1-2023-03',
-    title: 'IBA BBA - Analytical',
-    code: 'IBA-ANAL-2023',
-    type: 'analytical',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: false,
-    difficulty: 'hard',
-    year: '2023',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  // Round I - 2022
-  {
-    id: 'iba-r1-2022-01',
-    title: 'IBA BBA - English',
-    code: 'IBA-ENG-2022',
-    type: 'english',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: true,
-    difficulty: 'medium',
-    year: '2022',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  {
-    id: 'iba-r1-2022-02',
-    title: 'IBA BBA - Mathematics',
-    code: 'IBA-MATH-2022',
-    type: 'math',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: true,
-    difficulty: 'hard',
-    year: '2022',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  {
-    id: 'iba-r1-2022-03',
-    title: 'IBA BBA - Analytical',
-    code: 'IBA-ANAL-2022',
-    type: 'analytical',
-    totalMarks: 100,
-    duration: 60,
-    isAvailable: true,
-    difficulty: 'hard',
-    year: '2022',
-    round: 'Round I',
-    department: 'BBA'
-  },
-  // Round II - 2024
-  {
-    id: 'iba-r2-2024-01',
-    title: 'IBA BBA - Essay Writing',
-    code: 'IBA-ESS-2024',
-    type: 'essay',
-    totalMarks: 50,
-    duration: 45,
-    isAvailable: true,
-    difficulty: 'medium',
-    year: '2024',
-    round: 'Round II',
-    department: 'BBA'
-  },
-  {
-    id: 'iba-r2-2024-02',
-    title: 'IBA BBA - Interview',
-    code: 'IBA-INT-2024',
-    type: 'interview',
-    totalMarks: 50,
-    duration: 30,
-    isAvailable: true,
-    difficulty: 'hard',
-    year: '2024',
-    round: 'Round II',
-    department: 'BBA'
-  },
-  // Round II - 2023
-  {
-    id: 'iba-r2-2023-01',
-    title: 'IBA BBA - Essay Writing',
-    code: 'IBA-ESS-2023',
-    type: 'essay',
-    totalMarks: 50,
-    duration: 45,
-    isAvailable: true,
-    difficulty: 'medium',
-    year: '2023',
-    round: 'Round II',
-    department: 'BBA'
-  },
-  {
-    id: 'iba-r2-2023-02',
-    title: 'IBA BBA - Interview',
-    code: 'IBA-INT-2023',
-    type: 'interview',
-    totalMarks: 50,
-    duration: 30,
-    isAvailable: false,
-    difficulty: 'hard',
-    year: '2023',
-    round: 'Round II',
-    department: 'BBA'
-  },
-];
+export const lumsDepartment: LUMSDepartment = {
+  id: "lums-001",
+  name: "LUMS Test Preparation",
+  code: "LUMS-TP",
+  description: "Complete test preparation for LUMS admissions (LCAT & SAT)",
+  tests: [
+    {
+      id: "lcat-2024",
+      testType: "LCAT",
+      title: "LCAT",
+      description: "LUMS Common Admission Test - University's own standardized test",
+      years: [
+        {
+          year: "2024",
+          papers: [
+            {
+              id: "p1",
+              title: "LCAT English 2024",
+              code: "LCAT-2024-ENG",
+              type: "english",
+              totalMarks: 100,
+              duration: 60,
+              isAvailable: true,
+              difficulty: "medium",
+              year: "2024",
+              testType: "LCAT"
+            },
+            {
+              id: "p2",
+              title: "LCAT Math 2024",
+              code: "LCAT-2024-MATH",
+              type: "math",
+              totalMarks: 100,
+              duration: 60,
+              isAvailable: true,
+              difficulty: "hard",
+              year: "2024",
+              testType: "LCAT"
+            },
+            {
+              id: "p3",
+              title: "LCAT Analytical 2024",
+              code: "LCAT-2024-ANALYTICAL",
+              type: "analytical",
+              totalMarks: 100,
+              duration: 60,
+              isAvailable: false,
+              difficulty: "hard",
+              year: "2024",
+              testType: "LCAT"
+            }
+          ],
+          totalPapers: 3,
+          activePapers: 2
+        },
+        {
+          year: "2023",
+          papers: [
+            {
+              id: "p4",
+              title: "LCAT English 2023",
+              code: "LCAT-2023-ENG",
+              type: "english",
+              totalMarks: 100,
+              duration: 60,
+              isAvailable: true,
+              difficulty: "easy",
+              year: "2023",
+              testType: "LCAT"
+            }
+          ],
+          totalPapers: 1,
+          activePapers: 1
+        }
+      ],
+      totalPapers: 4,
+      availablePapers: 3
+    },
+    {
+      id: "sat-2024",
+      testType: "SAT",
+      title: "SAT",
+      description: "Scholastic Assessment Test - International standardized test",
+      years: [
+        {
+          year: "2024",
+          papers: [
+            {
+              id: "p5",
+              title: "SAT Reading 2024",
+              code: "SAT-2024-READING",
+              type: "english",
+              totalMarks: 100,
+              duration: 65,
+              isAvailable: true,
+              difficulty: "medium",
+              year: "2024",
+              testType: "SAT"
+            },
+            {
+              id: "p6",
+              title: "SAT Math 2024",
+              code: "SAT-2024-MATH",
+              type: "math",
+              totalMarks: 100,
+              duration: 80,
+              isAvailable: true,
+              difficulty: "hard",
+              year: "2024",
+              testType: "SAT"
+            },
+            {
+              id: "p7",
+              title: "SAT Essay 2024",
+              code: "SAT-2024-ESSAY",
+              type: "essay",
+              totalMarks: 50,
+              duration: 50,
+              isAvailable: false,
+              difficulty: "medium",
+              year: "2024",
+              testType: "SAT"
+            }
+          ],
+          totalPapers: 3,
+          activePapers: 2
+        }
+      ],
+      totalPapers: 3,
+      availablePapers: 2
+    }
+  ]
+};

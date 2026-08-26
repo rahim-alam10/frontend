@@ -8,7 +8,7 @@ export interface LUMSPaper {
   isAvailable: boolean;
   difficulty: 'easy' | 'medium' | 'hard';
   year: string;
-  testType: 'LCAT' | 'SAT'
+  testType: 'LCAT' | 'SAT';
   isActive?: boolean;
 }
 
@@ -21,7 +21,7 @@ export interface LUMSYear {
 
 export interface LUMSAdmissionTest {
   id: string;
-  testType: 'LCAT' | 'SAT'; // Changed from 'round'
+  testType: 'LCAT' | 'SAT';
   title: string; // "LCAT" or "SAT"
   description: string; // e.g., "LUMS Common Admission Test" or "Scholastic Assessment Test"
   years: LUMSYear[];
@@ -36,3 +36,4 @@ export interface LUMSDepartment {
   description: string;
   tests: LUMSAdmissionTest[];
 }
+
