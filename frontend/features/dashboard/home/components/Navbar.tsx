@@ -35,7 +35,7 @@ export default function Navbar() {
             <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Left Section - Logo */}
                 <div className="flex items-center gap-4">
-                    <Link href="/dashboard" className="flex items-center gap-2">
+                    <Link href="/dashboard/home" className="flex items-center gap-2">
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-600">
                             <BookOpen className="h-5 w-5 text-white" />
                         </div>

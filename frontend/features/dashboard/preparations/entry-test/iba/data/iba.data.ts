@@ -1,5 +1,3 @@
-// app/preparation/entry-tests/nust/data/iba.data.ts
-
 export interface IBAPaper {
   id: string;
   title: string;

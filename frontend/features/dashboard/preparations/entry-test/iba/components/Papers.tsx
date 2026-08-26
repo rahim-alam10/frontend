@@ -27,7 +27,6 @@ import { pastPapersData, IBAPaper } from '../data/iba.data'
 export default function PastPapersSection() {
   const [expandedRound, setExpandedRound] = useState<string | null>('Round I')
   const [expandedYear, setExpandedYear] = useState<string | null>('2024')
-  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null)
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty?.toLowerCase()) {

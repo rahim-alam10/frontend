@@ -23,13 +23,14 @@ import {
     Calculator,
     Brain,
     Sigma,
-    Microscope
+    Microscope,
+    Building2
 } from 'lucide-react'
 
 export const navigationItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard/home',
+        href: '/dashboard',
         icon: <LayoutDashboard className="h-5 w-5" />,
     },
     {
@@ -41,11 +42,11 @@ export const navigationItems: NavItem[] = [
                 title: 'Entry Tests',
                 icon: <PenTool className="h-4 w-4" />,
                 subItems: [
-                    { title: 'NUST NET', href: '/dashboard/preparation/entry-test/nust', icon: <Target className="h-3.5 w-3.5" /> },
-                    { title: 'FAST-NUCES', href: '/dashboard/preparation/entry-test/fast', icon: <Atom className="h-3.5 w-3.5" /> },
-                    { title: 'GIKI', href: '/dashboard/preparation/entry-test/giki', icon: <FlaskConical className="h-3.5 w-3.5" /> },
                     { title: 'LUMS', href: '/dashboard/preparation/entry-test/lums', icon: <Brain className="h-3.5 w-3.5" /> },
-                    { title: 'UET', href: '/dashboard/preparation/entry-test/uet', icon: <Calculator className="h-3.5 w-3.5" /> },
+                    { title: 'IBA', href:'/dashboard/preparation/entry-test/iba', icon: <Building2 className="h-3.5 w-3.5"/>},
+                    { title: 'NUST', href: '/dashboard/preparation/entry-test/nust', icon: <Target className="h-3.5 w-3.5" /> },
+                    { title: 'FAST-NUCES', href: '/dashboard/preparation/entry-test/fast', icon: <Atom className="h-3.5 w-3.5" /> },
+                    { title: 'GIKI', href: '/dashboard/preparation/entry-test/giki', icon: <FlaskConical className="h-3.5 w-3.5" /> },                    { title: 'UET', href: '/dashboard/preparation/entry-test/uet', icon: <Calculator className="h-3.5 w-3.5" /> },
                     { title: 'MDCAT', href: '/dashboard/preparation/entry-test/mdcat', icon: <Microscope className="h-3.5 w-3.5" /> },
                     { title: 'ECAT', href: '/dashboard/preparation/entry-test/ecat', icon: <Sigma className="h-3.5 w-3.5" /> },
                 ]

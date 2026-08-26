@@ -3,7 +3,7 @@
 
 import { useProtectedRoute } from '@/hooks/useProtectedRoute'
 import NUSTHeader from '@/features/dashboard/preparations/entry-test/nust/components/Header'
-import PastPapersSection from '@/features/dashboard/preparations/entry-test/nust/components/Papers'
+import PastPapersSection from '@/features/dashboard/preparations/entry-test/nust/components/HeroSection'
 
 export default function Page() {
 

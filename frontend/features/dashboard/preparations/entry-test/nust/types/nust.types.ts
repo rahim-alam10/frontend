@@ -1,32 +1,19 @@
-import {  LucideIcon } from 'lucide-react'
-
-export interface PastPaper {
-  year: string
+export interface DepartmentPapers {
+  typeName: string
   count: number
   papers: string[]
 }
 
-export interface Resource {
-  title: string
-  description: string
-  icon?: LucideIcon  
-  color?: string
-  count: number
+export interface PastPaper {
+  year: string
+  departments: DepartmentPapers[]  // Array of departments for each year
 }
 
-export interface Subject {
-  name: string
-  icon: LucideIcon  
-  progress?: number
-  color?: string
-}
-
-export interface FooterLink {
-  label: string
-  href: string
-}
-
-export interface FooterSection {
-  title: string
-  links: FooterLink[]
+export enum DEPARTMENTS {
+  Engineering = 'Engineering',
+  'Applied Sciences' = 'Applied Sciences',
+  Architecture = 'Architecture',
+  'Business Studies & Social Sciences' = 'Business Studies & Social Sciences',
+  'Computer Science' = 'Computer Science',
+  'Medical Sciences' = 'Medical Sciences'
 }

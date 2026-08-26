@@ -9,7 +9,7 @@ export interface IBAPaper {
   isAvailable: boolean;
   difficulty: 'easy' | 'medium' | 'hard';
   year: string;
-  round: 1 | 2;
+  round: 'Round I' | 'Round II';
   isActive?: boolean;
 }
 
