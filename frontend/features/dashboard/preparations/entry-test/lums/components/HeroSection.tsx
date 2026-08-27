@@ -274,34 +274,6 @@ export default function PastPapersSection() {
             )
           })}
         </div>
-
-        {/* Footer */}
-        <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-100">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-purple-600" />
-              <p className="text-sm text-gray-600">
-                <span className="font-semibold">{availablePapers}</span> out of{' '}
-                <span className="font-semibold">{totalPapers}</span> papers available
-              </p>
-            </div>
-            <div className="flex items-center gap-4 text-sm text-gray-500">
-              <span className="flex items-center gap-1">
-                <Badge className="bg-green-100 text-green-700 border-green-200">Easy</Badge>
-              </span>
-              <span className="flex items-center gap-1">
-                <Badge className="bg-yellow-100 text-yellow-700 border-yellow-200">Medium</Badge>
-              </span>
-              <span className="flex items-center gap-1">
-                <Badge className="bg-red-100 text-red-700 border-red-200">Hard</Badge>
-              </span>
-            </div>
-            <Button variant="outline" size="sm" className="border-purple-300 text-purple-700">
-              <BarChart3 className="h-4 w-4 mr-1" />
-              View All Statistics
-            </Button>
-          </div>
-        </div>
       </CardContent>
     </Card>
   )

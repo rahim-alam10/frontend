@@ -2,7 +2,7 @@
 'use client'
 
 import IBAHeader from '@/features/dashboard/preparations/entry-test/iba/components/Header'
-import PastPapersSection from '@/features/dashboard/preparations/entry-test/iba/components/Papers'
+import PastPapersSection from '@/features/dashboard/preparations/entry-test/iba/components/HeroSection'
 
 export default function Page() {
 
